@@ -1,46 +1,61 @@
-// LSP Practice Exercise — starter code. Square silently breaks Rectangle's
-// contract. Redesign so substituting Square for Rectangle can never surprise
-// a caller. See README.md in this folder for the full task and requirements.
+// Online Java Compiler (Editor)
+// Write and run Java online using this editor.
 
-class Rectangle {
+interface Shape {
+    double getArea();
+}
+
+class Rectangle implements Shape {
     protected int width;
     protected int height;
-
-    public void setWidth(int width) {
-        this.width = width;
+      
+    public void setWidth(int width) { 
+        this.width = width; 
     }
-
-    public void setHeight(int height) {
+    public void setHeight(int height) { 
         this.height = height;
     }
-
-    public int getArea() {
+    
+    @Override
+    public double getArea() { 
         return width * height;
     }
 }
 
-class Square extends Rectangle {
-    @Override
-    public void setWidth(int width) {
-        this.width = width;
-        this.height = width; // forces height to match width
+class Square implements Shape {
+    protected int side;
+
+    public void setSide(int side){
+        this.side = side;
     }
 
     @Override
-    public void setHeight(int height) {
-        this.width = height;
-        this.height = height;
-    }
+    public double getArea() { 
+        return side * side;
+    } 
 }
 
-public class Starter {
-    public static void main(String[] args) {
-        Rectangle rect = new Square();
-        rect.setWidth(5);
-        rect.setHeight(10);
 
-        // A caller of Rectangle expects independent width/height -> area 50.
-        // A Square can't honor that -> area is actually 100.
-        System.out.println("Expected 50, got: " + rect.getArea());
+
+class Main {
+
+    public static void printArea(Shape[] shapes){
+    for (Shape shape : shapes) {
+          System.out.println("Area " + shape.getArea());
+         }
+}
+    
+    public static void main(String[] args) {
+        Rectangle rec = new Rectangle();
+        rec.setWidth(5);
+        rec.setHeight(10);
+
+        Square squ = new Square();
+        squ.setSide(10);
+        
+        Shape[] myShapes = {rec, squ};
+        printArea(myShapes);
+        
     }
+    
 }
