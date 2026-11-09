@@ -1,6 +1,3 @@
-// Online Java Compiler (Editor)
-// Write and run Java online using this editor.
-
 interface Shape {
     double getArea();
 }
